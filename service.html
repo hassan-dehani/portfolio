@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Service Details</title>
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+<body class="service-details-page">
+
+<main class="main">
+
+  <div class="page-title dark-background">
+    <div class="container d-lg-flex justify-content-between align-items-center">
+      <h1 id="service-title">Service Details</h1>
+      <nav class="breadcrumbs">
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li class="current" id="breadcrumb-title">Service Details</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <section id="service-details" class="service-details section">
+    <div class="container">
+      <div class="row gy-4">
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <div class="services-list">
+            <a href="service.html?id=data-cleaning">Data Collection & Cleaning</a>
+            <a href="service.html?id=data-analysis">Data Analysis & Exploration</a>
+            <a href="service.html?id=data-visualization">Data Visualization</a>
+            <a href="service.html?id=business-insights">Business Insights & Reporting</a>
+            <a href="service.html?id=data-modeling">Data Modeling & Forecasting</a>
+            <a href="service.html?id=database-query">Database & Query Services</a>
+            <a href="service.html?id=custom-analysis">Custom Analysis Projects</a>
+            <a href="service.html?id=data-documentation">Data Documentation & Training</a>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="col-lg-8">
+          <img id="service-image" src="" alt="" class="img-fluid services-img mb-3">
+          <h3 id="service-heading"></h3>
+          <p id="service-desc"></p>
+
+          <ul id="service-content"></ul>
+
+          <h4 class="mt-4">Key Benefits:</h4>
+          <ul id="service-benefits"></ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const services = {
+  "data-cleaning": {
+    title: "Data Collection & Cleaning",
+    image: "assets/img/services/data-cleaning.jpg",
+    short_desc: "Ensure data accuracy and consistency through structured collection and cleaning processes.",
+    content: [
+      "I gather data from multiple sources such as Excel, CSV files, SQL databases, APIs, and even through web scraping techniques.",
+      "I handle missing values, remove duplicates, and fix inconsistent data formats.",
+      "Outliers and anomalies are detected and treated carefully.",
+      "I standardize and normalize data for analysis.",
+      "Tools: Python (Pandas, NumPy), Excel, SQL, Power Query."
+    ],
+    benefits: [
+      "Accurate and reliable datasets ready for analysis.",
+      "Reduces time wasted on fixing data errors later.",
+      "Improves the performance of analytical models."
+    ]
+  },
+  "data-analysis": {
+    title: "Data Analysis & Exploration",
+    image: "assets/img/services/data-analysis.jpg",
+    short_desc: "Discover meaningful insights through descriptive and inferential analysis.",
+    content: [
+      "Perform exploratory data analysis (EDA) to uncover trends, correlations, and patterns.",
+      "Use descriptive statistics like mean, median, and standard deviation.",
+      "Apply correlation and regression to find relationships between variables.",
+      "Perform hypothesis testing to validate assumptions.",
+      "Tools: Python (Pandas, NumPy, SciPy), Excel, Power BI, SQL."
+    ],
+    benefits: [
+      "Understand your data’s true story and key trends.",
+      "Identify growth opportunities or inefficiencies.",
+      "Support data-driven decision-making."
+    ]
+  }
+  // Add the remaining services here in same format...
+};
+
+// --- Get service id from URL ---
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+
+const service = services[id];
+
+// --- If invalid id, redirect ---
+if (!service) {
+  document.getElementById('service-title').textContent = 'Service Not Found';
+  document.getElementById('service-heading').textContent = 'Invalid service selected.';
+} else {
+  document.title = service.title + " - Service Details";
+  document.getElementById('service-title').textContent = service.title;
+  document.getElementById('breadcrumb-title').textContent = service.title;
+  document.getElementById('service-image').src = service.image;
+  document.getElementById('service-heading').textContent = service.title;
+  document.getElementById('service-desc').textContent = service.short_desc;
+
+  // Add list items dynamically
+  const contentList = document.getElementById('service-content');
+  service.content.forEach(item => {
+    const li = document.createElement('li');
+    li.innerHTML = `<i class="bi bi-check-circle"></i> <span>${item}</span>`;
+    contentList.appendChild(li);
+  });
+
+  const benefitsList = document.getElementById('service-benefits');
+  service.benefits.forEach(item => {
+    const li = document.createElement('li');
+    li.innerHTML = `<i class="bi bi-star"></i> ${item}`;
+    benefitsList.appendChild(li);
+  });
+}
+</script>
+
+
+</body>
+</html>
